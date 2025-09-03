@@ -1,5 +1,42 @@
 #include "my_string_functions.h"
 
+char * my_getline(char *str, int num_chars, FILE *stream){
+    return my_strdup(my_fgets(str, num_chars, stream));   
+}
+
+char * my_strdup(const char *str){
+    if (str == 0){
+        return 0;
+    }
+    size_t len = my_strlen(str);
+    char * new_str = (char *)calloc(len + 1, sizeof(char));
+
+    for (unsigned int str_position = 0; str_position < len; str_position++){
+        new_str[str_position] = str[str_position];
+    }
+
+    return new_str;
+}
+
+char * my_fgets(char *str, int num_chars, FILE *stream){
+    if (str == NULL && stream == NULL){
+        return NULL;
+    }
+
+    int new_symbol = 0;
+    int str_position = 0;
+    while (str_position < num_chars){
+        new_symbol = fgetc(stream);
+        if (new_symbol == EOF){
+            return str;
+        }
+        str[str_position] = (char)new_symbol;
+        str_position++;
+    }
+    
+    return str;
+}
+
 int my_atoi(const char * str){
     if (str== NULL){
         return NULL;
@@ -147,7 +184,7 @@ size_t my_strlen(const char * str){
         len++;
     } while (current_character != '\0');
 
-    return (len - 1) * sizeof(str[0]);
+    return len - 1;
 }
 
 

@@ -1,6 +1,16 @@
-#include <stdio.h>
 #ifndef my_string_functions_h_
 #define my_string_functions_h_
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//TODO documentation
+
+char * my_getline(char *str, int num_chars, FILE *stream);
+
+char * my_strdup(const char *str);
+
+char * my_fgets(char *str, int numChars, FILE *stream);
 
 int my_atoi(const char * str);
 
