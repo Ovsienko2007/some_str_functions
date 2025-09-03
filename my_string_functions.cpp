@@ -1,8 +1,85 @@
 #include "my_string_functions.h"
 
+int my_atoi(const char * str){
+    if (str== NULL){
+        return NULL;
+    }
+
+    int ans = 0;
+    unsigned int str_position = 0;
+    do {
+        if (!('0' <= str[str_position] && str[str_position] <= '9')){
+            return NULL;
+        }
+        ans = ans * 10 + (str[str_position] - '0');
+        str_position++;
+
+    } while(str[str_position] != '\0');
+
+    return ans;
+}
+
+char * my_strncat(char *str_dest, const char *str_add, size_t len){
+    if (str_dest == NULL || str_add == NULL){
+        return NULL;
+    }
+
+    if (len == 0){
+        return str_dest;
+    }
+
+    unsigned int str_position = 0;
+    do {
+        str_position++;
+
+    } while(str_dest[str_position] != '\0');
+
+    unsigned int str_add_position = 0; 
+    while (str_add[str_add_position] != '\0' && str_add_position < len){
+        str_dest[str_position] = str_add[str_add_position];
+        str_position++;
+        str_add_position++;
+    }
+    str_dest[str_position] = str_add[str_add_position];
+
+    if (str_add_position == len){
+        str_dest[str_position] = '\0';
+    } else{
+        str_dest[str_position] = str_add[str_add_position];
+    }
+
+    return str_dest;
+}
+
+char * my_strcat(char * str_dest, const char * str_add){
+    if (str_dest == NULL || str_add == NULL){
+        return NULL;
+    }
+
+    unsigned int  str_position = 0;
+    do {
+        str_position++;
+
+    } while(str_dest[str_position] != '\0');
+
+    unsigned int  str_add_position = 0; 
+    while (str_add[str_add_position] != '\0'){
+        str_dest[str_position] = str_add[str_add_position];
+        str_position++;
+        str_add_position++;
+    }
+    str_dest[str_position] = str_add[str_add_position];
+
+    return str_dest;
+}
+
 char * my_strncpy(char * new_str, const char * old_str, size_t len){
     if (len == 0){
         return new_str;
+    }
+
+    if (new_str == NULL || old_str == NULL){
+        return NULL;
     }
 
     size_t symbol_num = 0;
@@ -20,8 +97,11 @@ char * my_strncpy(char * new_str, const char * old_str, size_t len){
     return new_str;
 }
 
-
 char * my_strcpy(char * new_str, const char * old_str){
+    if (new_str == NULL || old_str == NULL){
+        return NULL;
+    }
+
     int symbol_num = 0;
     char current_character = NULL;
     do{
