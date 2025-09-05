@@ -13,7 +13,7 @@
  * 
  * @return point to calloc
  */
-char * my_getline(char *str, int num_chars, FILE *stream);
+//char * my_getline(char *str, int num_chars, FILE *stream);
 
 /**
  * @brief transform string to calloc
