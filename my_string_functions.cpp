@@ -1,7 +1,5 @@
 #include "my_string_functions.h"
 
-//TODO my_get_line
-
 char * my_strdup(const char *str){
     if (str == 0) return NULL;
 
@@ -23,10 +21,10 @@ char * my_fgets(char *str, int num_chars, FILE *stream){
     }
     
     int str_position = 0;
-    for (int new_symbol = fgetc(stream); str_position < num_chars - 1;
-         str_position++, new_symbol = fgetc(stream)){
-        
+    for (; str_position < num_chars - 1; str_position++){
+        int new_symbol = fgetc(stream);
         str[str_position] = (char)new_symbol;
+
         if (new_symbol == EOF || new_symbol == '\n'){
             str_position++;
             break;
@@ -88,7 +86,7 @@ char * my_strcat(char * str_dest, const char * str_add){
         ;
 
     size_t str_add_position = 0;
-    for (; str_add[str_add_position] != '\0'; str_add_position++, str_add_position++){
+    for (; str_add[str_add_position] != '\0'; str_add_position++, str_position++){
         str_dest[str_position] = str_add[str_add_position];
     }
 
@@ -102,25 +100,25 @@ char * my_strncpy(char * new_str, const char * old_str, size_t len){
     if (len == 0) return new_str;
 
     size_t symbol_num = 0;
-    for (; old_str[symbol_num] != '\0' && symbol_num < len; symbol_num++){
+    for (; symbol_num < len; symbol_num++){
         new_str[symbol_num] = old_str[symbol_num];
+        if (old_str[symbol_num] == '\0'){
+            break;
+        }
     }
 
-    if (symbol_num == len){
-        new_str[len] = '\0';
-    }
-    
     return new_str;
 }
 
 char * my_strcpy(char * new_str, const char * old_str){
     if (new_str == NULL || old_str == NULL) return NULL;
     
-    char current_character = NULL;
-    for (int symbol_num = 0; current_character != '\0'; symbol_num++){
-        current_character = old_str[symbol_num];
-        new_str[symbol_num] = current_character;
+    int symbol_num = 0;
+    for (; old_str[symbol_num] != '\0'; symbol_num++){
+        new_str[symbol_num] = old_str[symbol_num];
     }
+
+    new_str[symbol_num] = old_str[symbol_num];
     
     return new_str;
 }
@@ -144,7 +142,7 @@ size_t my_strlen(const char * str){
     for (;  str[len] != '\0'; len++)
         ;
 
-    return len - 1;
+    return len;
 }
 
 int my_puts(const char* str){
