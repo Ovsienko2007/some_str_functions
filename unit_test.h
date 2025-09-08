@@ -1,3 +1,8 @@
+/**
+ * @file unit_test.h
+ * @brief performs unit tests
+ */
+
 #ifndef UNIT_TEST_H_
 #define UNIT_TEST_H_
 
@@ -15,6 +20,11 @@
 
 #define RESSET_DATA(x, y) memcpy(x, "123456", sizeof("123456")), memcpy(y, "123456", sizeof("123456"));
 
+/**
+ * @brief complit unit tests
+ * 
+ * @return 0
+ */
 int start_unit_test();
 
 #endif

@@ -1,3 +1,8 @@
+/**
+ * @file my_string_functions.h
+ * @brief contain string functions
+ */
+
 #ifndef my_string_functions_h_
 #define my_string_functions_h_
 
@@ -13,7 +18,7 @@
  * 
  * @return point to calloc
  */
-//char * my_getline(char *str, int num_chars, FILE *stream);
+ssize_t my_getline(char **str, size_t *n, FILE *stream);
 
 /**
  * @brief transform string to calloc

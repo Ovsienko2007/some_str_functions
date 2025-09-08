@@ -1,5 +1,31 @@
 #include "my_string_functions.h"
 
+ssize_t my_getline(char **str, size_t *n, FILE *stream){
+    if (str == NULL || stream == NULL){
+        return NULL;
+    }
+
+    *str = (char *)calloc(*n, sizeof(char));
+    
+    size_t str_position = 0;
+    int new_symbol = fgetc(stream);
+
+    for (; new_symbol != EOF && new_symbol != '\n';
+         str_position++, new_symbol = fgetc(stream)){
+
+        if (str_position == *n){
+            *n += 1;
+            *str = (char *)realloc(*str, (*n)*sizeof(char));
+        }
+
+        (*str)[str_position] = (char)new_symbol;
+    }
+
+    (*str)[str_position] = '\0';
+    
+    return *n;
+}
+
 char * my_strdup(const char *str){
     if (str == 0) return NULL;
 
