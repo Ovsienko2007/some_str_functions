@@ -72,9 +72,10 @@ int start_unit_test(){
     FILE * file = fopen("test.txt", "r");
     my_fgets(test_data_1, 8, file);
     my_fgets(test_data_2, 8, file);
-    size_t n = 0;
+    size_t n = 6;
     char* str = (char*)calloc(n, sizeof(char));
     my_getline(&str, &n, file);
+    printf("%s\n", str);
     fclose(file);
 
     print_test("my_fgets",     (const void*)test_data_2,    
@@ -83,8 +84,7 @@ int start_unit_test(){
 
     print_test("my_strdup",    (const void*)((size_t)strdup(test_data_2)), 
                                (const void*)((size_t)my_strdup(test_data_2)),      "%s");
-    RESSET_DATA(test_data_1, test_data_2);
-
+    
     printf("Test:" CONSOLE_PIRPLE " my_getline: \n" CONSOLE_RESET);
     printf(CONSOLE_GREEN "Getted: ");
     printf("%s\n", str);

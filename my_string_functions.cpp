@@ -1,27 +1,34 @@
 #include "my_string_functions.h"
 
-ssize_t my_getline(char **str, size_t *n, FILE *stream){
-    if (str == NULL || stream == NULL) return NULL;
+ssize_t my_getline(char **str, size_t *str_len, FILE *stream){
+    if (str == NULL || stream == NULL) return -1;
+    if (*str == NULL){
+        *str_len = new_str_len;
+        *str = (char *)calloc(*str_len, sizeof(char));
+        if (str == NULL) return -1;
+    }
 
-    *str = (char *)calloc(*n, sizeof(char));
-    
     size_t str_position = 0;
-    int new_symbol = fgetc(stream);
+    
+    while (true){
+        int new_symbol = fgetc(stream);
 
-    for (; new_symbol != EOF && new_symbol != '\n';
-         str_position++, new_symbol = fgetc(stream)){
+        if (new_symbol == EOF || new_symbol == '\n') break;
+        
+        if (str_position >= *str_len){
+            *str_len *= line_coefficient;
+            char * str_new = (char *)realloc(*str, (*str_len)*sizeof(char));
+            if (str_new == NULL) return -1;
 
-        if (str_position == *n){
-            *n += 1;
-            *str = (char *)realloc(*str, (*n)*sizeof(char));
+            str = &str_new;
         }
 
         (*str)[str_position] = (char)new_symbol;
+        str_position++;
     }
 
     (*str)[str_position] = '\0';
-    
-    return *n;
+    return *str_len;
 }
 
 char * my_strdup(const char *str){
@@ -106,8 +113,7 @@ char * my_strcat(char * str_dest, const char * str_add){
     if (str_dest == NULL || str_add == NULL) return NULL;
 
     size_t str_position = 0;
-    for (; str_dest[str_position] != '\0'; str_position++)
-        ;
+    for (; str_dest[str_position] != '\0'; str_position++);
 
     size_t str_add_position = 0;
     for (; str_add[str_add_position] != '\0'; str_add_position++, str_position++){
@@ -163,8 +169,7 @@ size_t my_strlen(const char * str){
     if (str == NULL) return EOF;
 
     size_t len = 0;
-    for (;  str[len] != '\0'; len++)
-        ;
+    for (;  str[len] != '\0'; len++);
 
     return len;
 }
@@ -175,6 +180,7 @@ int my_puts(const char* str){
     for (int symbol_num = 0; str[symbol_num] != '\0'; symbol_num++){
         putchar(str[symbol_num]);
     }
+
     putchar('\n');
 
     return 1;

@@ -9,6 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const size_t new_str_len      = 64;
+const size_t line_coefficient = 2;
+
 /**
  * @brief reads n characters from the stream to string and put it in calloc
  * 
