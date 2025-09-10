@@ -1,9 +1,7 @@
 #include "my_string_functions.h"
 
 ssize_t my_getline(char **str, size_t *n, FILE *stream){
-    if (str == NULL || stream == NULL){
-        return NULL;
-    }
+    if (str == NULL || stream == NULL) return NULL;
 
     *str = (char *)calloc(*n, sizeof(char));
     
